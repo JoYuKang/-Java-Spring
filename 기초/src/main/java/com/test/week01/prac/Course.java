@@ -16,4 +16,16 @@ public class Course {
         this.tutor = tutor;
         this.days = days;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
+
+    public void setTutor(String tutor) {
+        this.tutor = tutor;
+    }
 }
