@@ -1,10 +1,9 @@
-package domain;
+package com.test03.week03.domain;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 @NoArgsConstructor // 기본생성자를 만듭니다.
 @Getter
@@ -26,6 +25,11 @@ public class Memo extends Timestamped { // 생성,수정 시간을 자동으로 
     }
 
     public Memo(MemoRequestDto requestDto) {
+        this.username = requestDto.getUsername();
+        this.contents = requestDto.getContents();
+    }
+
+    public void update(MemoRequestDto requestDto) {
         this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();
     }
