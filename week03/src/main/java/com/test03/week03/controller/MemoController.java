@@ -7,6 +7,7 @@ import com.test03.week03.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,18 +23,23 @@ public class MemoController {
         Memo memo = new Memo(requestDto);
         return memoRepository.save(memo);
     }
+
     @GetMapping("/api/memos")
     public List<Memo> getMemos() {
-        return memoRepository.findAllByOrderByModifiedAtDesc();
+
+        return memoRepository.findAllByModifiedAtBetweenOrderByModifiedAtDesc(LocalDateTime.now().minusDays(1),LocalDateTime.now());
     }
+
     @DeleteMapping("/api/memos/{id}") //PathVariable는 {}사이 값을 가져오려고 쓰는 것이다.
     public Long deleteMemo(@PathVariable Long id) {
         memoRepository.deleteById(id);
         return id;
     }
+
     @PutMapping("api/memos/{id}")
-    public Long updateMemo(@PathVariable long id,@RequestBody MemoRequestDto requestDto){
-        memoService.update(id,requestDto);
+    public Long updateMemo(@PathVariable long id, @RequestBody MemoRequestDto requestDto) {
+        memoService.update(id, requestDto);
         return id;
     }
+
 }
