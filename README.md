@@ -21,3 +21,6 @@ https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-me
 #### 네이버 오픈 API
 https://developers.naver.com/products/intro/plan/     
 https://developers.naver.com/docs/search/shopping/
+
+
+
