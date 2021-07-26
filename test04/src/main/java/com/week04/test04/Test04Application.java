@@ -1,13 +1,13 @@
-package com.test03.week04;
+package com.week04.test04;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Week04Application {
+public class Test04Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Week04Application.class, args);
+        SpringApplication.run(Test04Application.class, args);
     }
 
 }
