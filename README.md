@@ -23,10 +23,13 @@ https://developers.naver.com/products/intro/plan/
 https://developers.naver.com/docs/search/shopping/
 
 
+##### timestamed    
 @Getter // get 함수를 자동 생성     
 @MappedSuperclass // 멤버 변수가 컬럼이 되도록 변경     
 @EntityListeners(AuditingEntityListener.class) // 변경되었을 때 자동으로 기록     
-
-
+  
+##### main     
+@EnableJpaAuditing // 시간 자동 변경이 가능하도록 합니다.
+@SpringBootApplication // 스프링 부트임을 선언합니다.
 
   
