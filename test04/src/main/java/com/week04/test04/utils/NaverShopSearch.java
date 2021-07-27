@@ -43,4 +43,5 @@ public class NaverShopSearch {
         return itemDtoList;
     }
 
+
 }
