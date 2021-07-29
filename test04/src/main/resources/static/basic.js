@@ -47,16 +47,16 @@ function execSearch() {
      * 검색결과 목록: #search-result-box
      * 검색결과 HTML 만드는 함수: addHTML
      */
-    // 1. 검색창의 입력값을 가져온다.
+        // 1. 검색창의 입력값을 가져온다.
     let query = $('#query').val();
     // 2. 검색창 입력값을 검사하고, 입력하지 않았을 경우 focus.
-    if(query==''){
+    if (query == '') {
         alert("검색어를 입력하세요");
         $('#query').focus();
     }
     $('#search-result-box').empty();
     // 3. GET /api/search?query=${query} 요청
-        $.ajax({
+    $.ajax({
         type: 'GET',
         url: `/api/search?query=${query}`,
         success: function (response) {
@@ -96,6 +96,7 @@ function addHTML(itemDto) {
                 </div>
             </div>`
 }
+
 function addProduct(itemDto) {
     /**
      * modal 뜨게 하는 법: $('#container').addClass('active');
@@ -104,7 +105,19 @@ function addProduct(itemDto) {
      * 2. data: JSON.stringify(itemDto),
      */
     // 1. POST /api/products 에 관심 상품 생성 요청
+    $.ajax({
+        type: 'POST',
+        url: `/api/products`,
+        data: JSON.stringify(itemDto),
+        contentType: "application/json",
+        success: function (response) {
+            $('#container').addClass('active');
+            targetId = response.id;
+            console.log(response)
+        }
+    })
     // 2. 응답 함수에서 modal을 뜨게 하고, targetId 를 reponse.id 로 설정 (숙제로 myprice 설정하기 위함)
+
 }
 
 function showProduct() {
