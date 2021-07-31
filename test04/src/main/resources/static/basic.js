@@ -127,8 +127,24 @@ function showProduct() {
      * 관심상품 HTML 만드는 함수: addProductItem
      */
     // 1. GET /api/products 요청
-    // 2. 관심상품 목록, 검색결과 목록 비우기
-    // 3. for 문마다 관심 상품 HTML 만들어서 관심상품 목록에 붙이기!
+    $.ajax({
+        type: 'GET',
+        url: '/api/products',
+
+        success: function (response) {
+            // 2. 관심상품 목록, 검색결과 목록 비우기
+            $('#product-container').empty();
+            $('#search-result-box').empty();
+            // 3. for 문마다 관심 상품 HTML 만들어서 관심상품 목록에 붙이기!
+            for (let i = 0; i < response.length; i++) {
+                let product = response[i];
+                let tempHtml = addProductItem(product);
+                $('#product-container').append(tempHtml);
+            }
+        }
+    })
+
+    
 }
 
 function addProductItem(product) {
