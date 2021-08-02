@@ -2,14 +2,12 @@ package com.week04.test04.controller;
 
 
 import com.week04.test04.models.Product;
+import com.week04.test04.models.ProductMypriceRequestDto;
 import com.week04.test04.models.ProductRepository;
 import com.week04.test04.models.ProductRequestDto;
 import com.week04.test04.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web. bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +30,10 @@ public class ProductRestController {
         Product product = new Product(requestDto);
         productRepository.save(product);
         return product;
+    }
+
+    @PutMapping("/api/products/{id}")
+    public Long updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
+        return productService.update(id, requestDto);
     }
 }
