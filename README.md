@@ -42,3 +42,34 @@ https://developers.naver.com/docs/search/shopping/
     
 // 반드시 값을 가지도록 합니다.    
     @Column(nullable = false)       
+    
+    
+    
+    
+    
+#### Mysql 연결하기
+spring.datasource.url=jdbc:mysql://나의엔드포인트:3306/myselectshop     
+spring.datasource.username=나의USERNAME     
+spring.datasource.password=나의패스워드     
+spring.jpa.hibernate.ddl-auto=update       
+
+#### OpenJDK 설치
+sudo apt-get update
+sudo apt-get install openjdk-8-jdk
+java -version //버전확인
+
+#### 스프링 부트 작동
+java -jar JAR파일명.jar
+
+### 포트포워딩 & nohup 적용
+
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080      
+
+##### 원격 접속을 종료하더라도 서버가 계속 돌아가게 하기
+nohup java -jar JAR파일명.jar &
+##### 서버 종료하기 - 강제종료
+###### 아래 명령어로 미리 pid 값(프로세스 번호)을 본다
+ps -ef | grep java
+
+###### 아래 명령어로 특정 프로세스를 죽인다
+kill -9 [pid값]
