@@ -1,6 +1,7 @@
 package com.deepening.spring_core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +16,9 @@ import java.util.ArrayList;
 
 @WebServlet(urlPatterns = "/api/products/*", loadOnStartup = 1)
 public class AllInOneServlet extends HttpServlet {
-    // 신규 관심상품 등록
+    // 신규 관심상품 등
     // POST /api/products
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 요청 Body 의 JSON -> 자바 객체
@@ -29,6 +31,8 @@ public class AllInOneServlet extends HttpServlet {
                 jb.append(line);
 
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+
             requestDto = objectMapper.readValue(jb.toString(), ProductRequestDto.class);
         } catch (Exception e) { /*report an error*/ }
 
@@ -71,6 +75,7 @@ public class AllInOneServlet extends HttpServlet {
 
         // 자바 객체 -> JSON 으로 변환
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         String productJson = objectMapper.writeValueAsString(product);
 
         // 응답 보내기
@@ -102,6 +107,7 @@ public class AllInOneServlet extends HttpServlet {
                 jb.append(line);
 
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
             requestDto = objectMapper.readValue(jb.toString(), ProductMypriceRequestDto.class);
         } catch (Exception e) { /*report an error*/ }
 
@@ -146,6 +152,7 @@ public class AllInOneServlet extends HttpServlet {
 
         // 자바 객체 -> JSON 으로 변환
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         String productIdJson = objectMapper.writeValueAsString(product.getId());
 
         // 응답 보내기 (업데이트된 상품 id)
@@ -190,6 +197,7 @@ public class AllInOneServlet extends HttpServlet {
 
         // 자바 객체 -> JSON 으로 변환
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
         String productsJson = objectMapper.writeValueAsString(products);
 
         // 응답 보내기
