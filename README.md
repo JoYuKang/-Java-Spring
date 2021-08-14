@@ -42,7 +42,9 @@ https://developers.naver.com/docs/search/shopping/
     
 // 반드시 값을 가지도록 합니다.    
     @Column(nullable = false)       
-    
+
+![image](https://user-images.githubusercontent.com/46198324/129441192-e32350e9-41da-4153-8e8c-2f2f9f91b777.png)
+
     
     
     
