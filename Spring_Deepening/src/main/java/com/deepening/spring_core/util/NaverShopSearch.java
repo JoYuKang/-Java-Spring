@@ -1,6 +1,7 @@
-package com.deepening.spring_core;
+package com.deepening.spring_core.util;
 
 
+import com.deepening.spring_core.dto.ItemDto;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.*;

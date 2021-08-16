@@ -1,5 +1,9 @@
-package com.deepening.spring_core;
+package com.deepening.spring_core.controller;
 
+import com.deepening.spring_core.model.Product;
+import com.deepening.spring_core.dto.ProductMypriceRequestDto;
+import com.deepening.spring_core.service.ProductService;
+import com.deepening.spring_core.dto.ProductRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -13,6 +17,7 @@ public class ProductController {
 
     // 생성자: ProductController() 가 생성될 때 호출됨
     @Autowired
+
     public ProductController(ProductService productService) {
         // 멤버 변수 생성
         this.productService = productService;

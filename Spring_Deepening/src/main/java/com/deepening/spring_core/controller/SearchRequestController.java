@@ -1,6 +1,8 @@
-package com.deepening.spring_core;
+package com.deepening.spring_core.controller;
 
 
+import com.deepening.spring_core.util.NaverShopSearch;
+import com.deepening.spring_core.dto.ItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

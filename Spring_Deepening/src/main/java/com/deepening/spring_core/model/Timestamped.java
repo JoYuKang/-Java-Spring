@@ -1,4 +1,4 @@
-package com.deepening.spring_core;
+package com.deepening.spring_core.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,16 +1,24 @@
-package com.deepening.spring_core;
+package com.deepening.spring_core.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.deepening.spring_core.model.Product;
+import com.deepening.spring_core.dto.ProductMypriceRequestDto;
+import com.deepening.spring_core.dto.ProductRequestDto;
+import com.deepening.spring_core.repository.ProductRepository;
+import org.springframework.stereotype.Service;
+// org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 public class ProductService {
     // 멤버 변수 선언
     private final ProductRepository productRepository;
 
     // 생성자: ProductService() 가 생성될 때 호출됨
-    @Autowired
+    //@Autowired
+
     public ProductService(ProductRepository productRepository) {
         // 멤버 변수 생성
         this.productRepository = productRepository;
@@ -18,23 +26,31 @@ public class ProductService {
 
     public List<Product> getProducts() throws SQLException {
         // 멤버 변수 사용
-        return productRepository.getProducts();
+        return productRepository.findAll();
     }
 
     public Product createProduct(ProductRequestDto requestDto) throws SQLException {
         // 요청받은 DTO 로 DB에 저장할 객체 만들기
         Product product = new Product(requestDto);
-        productRepository.createProduct(product);
+        productRepository.save(product);
         return product;
     }
-
+    @Transactional
     public Product updateProduct(Long id, ProductMypriceRequestDto requestDto) throws SQLException {
-        Product product = productRepository.getProduct(id);
-        if (product == null) {
-            throw new NullPointerException("해당 아이디가 존재하지 않습니다.");
-        }
+        Product product = productRepository.findById(id).orElseThrow( ()->
+                new IllegalAccessError("해당 아이디가 없습니다."));
+
         int myPrice = requestDto.getMyprice();
-        productRepository.updateProductMyPrice(id, myPrice);
+        //productRepository.updateProductMyPrice(id, myPrice); 바꾸는법
+        // 방법 1
+        //product.setMyprice(myPrice);
+        //productRepository.save(product);
+        // 방법 2
+        // @Transactional 추가
+
+        product.updateMyprice(myPrice);
+
+
         return product;
     }
 }
