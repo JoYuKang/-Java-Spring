@@ -20,4 +20,5 @@ dependencies {
 #### DI 사용
 ![image](https://user-images.githubusercontent.com/46198324/129450661-ef3191ab-5698-4343-aa39-25ffefe57c83.png)
 
-
+#### Spring Reference Documentation
+https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
