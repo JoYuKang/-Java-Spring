@@ -20,4 +20,6 @@ public abstract class Timestamped {
 
     @LastModifiedDate // 마지막 변경 시점
     private LocalDateTime modifiedAt;
+
+    public abstract void updateMyPrice(int myPrice);
 }

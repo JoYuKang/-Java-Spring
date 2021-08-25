@@ -50,4 +50,9 @@ import javax.persistence.*;
 
         @Column(nullable = true)
         private Long kakaoId;
+
+        @Override
+        public void updateMyPrice(int myPrice) {
+
+        }
     }
