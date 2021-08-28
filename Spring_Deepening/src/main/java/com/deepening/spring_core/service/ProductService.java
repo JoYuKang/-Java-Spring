@@ -59,7 +59,7 @@ public class ProductService {
         return product;
     }
 
-    // 모든 상품 조회 (관리자용)
+    // 모든 상품 조회 (관리자용) 
     public Page<Product> getAllProducts(int page, int size, String sortBy, boolean isAsc) {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
