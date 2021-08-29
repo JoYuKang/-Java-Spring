@@ -8,6 +8,7 @@ import com.deepening.spring_core.service.ProductService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -57,7 +58,7 @@ class ProductIntegrationTest {
     @Test
     @Order(2)
     @DisplayName("신규 등록된 관심상품의 희망 최저가 변경")
-    void test2() throws SQLException {
+    void test2() {
         // given
         Long productId = this.createdProduct.getId();
         int myPrice = 70000;
@@ -80,10 +81,15 @@ class ProductIntegrationTest {
     @Test
     @Order(3)
     @DisplayName("회원이 등록한 모든 관심상품 조회")
-    void test3() throws SQLException {
+    void test3() {
         // given
+        int page = 0;
+        int size = 10;
+        String sortBy = "id";
+        boolean isAsc = false;
+
         // when
-        List<Product> productList = productService.getProducts(userId);
+        Page<Product> productList = productService.getProducts(userId, page, size, sortBy, isAsc);
 
         // then
         // 1. 전체 상품에서 테스트에 의해 생성된 상품 찾아오기 (상품의 id 로 찾음)

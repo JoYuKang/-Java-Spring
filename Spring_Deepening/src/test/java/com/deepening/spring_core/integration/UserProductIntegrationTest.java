@@ -12,13 +12,13 @@ import com.deepening.spring_core.service.UserService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -68,7 +68,7 @@ public class UserProductIntegrationTest {
     @DisplayName("회원 가입")
     void test2() {
         // given
-        String username = "르탄이";
+        String username = "르탄이12";
         String password = "nobodynoboy";
         String email = "retan1@spartacodingclub.kr";
         boolean admin = false;
@@ -85,7 +85,6 @@ public class UserProductIntegrationTest {
         // then
         assertNotNull(user.getId());
         assertEquals(username, user.getUsername());
-        // 암호화 해제
         assertTrue(passwordEncoder.matches(password, user.getPassword()));
         assertEquals(email, user.getEmail());
         assertEquals(UserRole.USER, user.getRole());
@@ -126,7 +125,7 @@ public class UserProductIntegrationTest {
     @Test
     @Order(4)
     @DisplayName("신규 등록된 관심상품의 희망 최저가 변경")
-    void test4() throws SQLException {
+    void test4() {
         // given
         Long productId = this.createdProduct.getId();
         int myPrice = 70000;
@@ -147,10 +146,16 @@ public class UserProductIntegrationTest {
     @Test
     @Order(5)
     @DisplayName("회원이 등록한 모든 관심상품 조회")
-    void test5() throws SQLException {
+    void test5() {
         // given
+        int page = 0;
+        int size = 10;
+        String sortBy = "id";
+        boolean isAsc = false;
+
         // when
-        List<Product> productList = productService.getProducts(userId);
+        Page<Product> productList = productService.getProducts(userId, page, size, sortBy, isAsc);
+
         // then
         // 1. 전체 상품에서 테스트에 의해 생성된 상품 찾아오기 (상품의 id 로 찾음)
         Long createdProductId = this.createdProduct.getId();
