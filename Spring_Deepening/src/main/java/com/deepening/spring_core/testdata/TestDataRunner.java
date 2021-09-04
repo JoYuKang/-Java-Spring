@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-class TestDataRunner implements ApplicationRunner {
+public class TestDataRunner implements ApplicationRunner {
 
     @Autowired
     UserService userService;

@@ -1,17 +1,17 @@
 package com.deepening.spring_core.controller;
 
-import com.deepening.spring_core.model.Product;
 import com.deepening.spring_core.dto.ProductMypriceRequestDto;
-import com.deepening.spring_core.security.UserDetailsImpl;
 import com.deepening.spring_core.dto.ProductRequestDto;
+import com.deepening.spring_core.model.Product;
+import com.deepening.spring_core.security.UserDetailsImpl;
 import com.deepening.spring_core.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import java.sql.SQLException;
 
 @RestController // JSON으로 데이터를 주고받음을 선언합니다.
 public class ProductController {
