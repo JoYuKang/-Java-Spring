@@ -62,7 +62,7 @@ class UserRepositoryTest {
         // 회원 "user1" 을 또또 조회
         User foundUser3 = userRepository.findByUsername("user1").orElse(null);
 
-        System.out.println("foundUser1:" + foundUser1 + " ,foundUser2: " + foundUser2 + ", foundUser3:" + foundUser3);
+            System.out.println("foundUser1:" + foundUser1 + " ,foundUser2: " + foundUser2 + ", foundUser3:" + foundUser3);
 
         // ------------------------------------
         // 테스트 회원 데이터 삭제

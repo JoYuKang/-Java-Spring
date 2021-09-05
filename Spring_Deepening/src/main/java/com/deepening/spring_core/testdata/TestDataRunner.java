@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component // 중복데이터 삽입 방지
 public class TestDataRunner implements ApplicationRunner {
 
     @Autowired
