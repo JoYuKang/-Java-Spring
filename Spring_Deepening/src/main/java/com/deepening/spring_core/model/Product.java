@@ -5,15 +5,16 @@ import com.deepening.spring_core.util.URLValidator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
+import java.util.List;
+
+
 
 @Setter
 @Getter // get 함수를 일괄적으로 만들어줍니다.
 @NoArgsConstructor // 기본 생성자를 만들어줍니다.
 @Entity // DB 테이블 역할을 합니다.
-public class Product {
-
+public class Product extends Timestamped {
     // ID가 자동으로 생성 및 증가합니다.
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -37,6 +38,9 @@ public class Product {
 
     @Column(nullable = false)
     private Long userId;
+
+    @ManyToMany
+    private List<Folder> folderList;
 
     public Product(ProductRequestDto requestDto, Long userId) {
         // 입력값 Validation
@@ -69,10 +73,19 @@ public class Product {
         this.myprice = 0;
     }
 
-    public void updateMyprice(int myPrice) {
+    @Override
+    public void updateMyPrice(int myPrice) {
         this.myprice = myPrice;
     }
 
-    public void updateMyPrice(int myPrice) {
+    // 관심 상품의 가격 변경 시 사용합니다.
+    public void updateMyprice(int price) {
+        this.myprice = price;
+    }
+
+
+
+    public void addFolder(Folder folder) {
+        this.folderList.add(folder);
     }
 }

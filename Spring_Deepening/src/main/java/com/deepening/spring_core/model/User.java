@@ -55,4 +55,9 @@ import javax.persistence.*;
         public void updateMyPrice(int myPrice) {
 
         }
+
+        @Override
+        public void updateMyprice(int myPrice) {
+
+        }
     }

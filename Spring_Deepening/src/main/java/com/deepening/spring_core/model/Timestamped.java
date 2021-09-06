@@ -22,4 +22,6 @@ public abstract class Timestamped {
     private LocalDateTime modifiedAt;
 
     public abstract void updateMyPrice(int myPrice);
+
+    public abstract void updateMyprice(int myPrice);
 }

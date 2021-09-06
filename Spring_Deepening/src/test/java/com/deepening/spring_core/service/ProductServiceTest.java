@@ -4,6 +4,7 @@ package com.deepening.spring_core.service;
 import com.deepening.spring_core.dto.ProductMypriceRequestDto;
 import com.deepening.spring_core.dto.ProductRequestDto;
 import com.deepening.spring_core.model.Product;
+import com.deepening.spring_core.repository.FolderRepository;
 import com.deepening.spring_core.repository.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,9 +23,12 @@ class ProductServiceTest {
     @Mock
     ProductRepository productRepository;
 
+    @Mock
+    FolderRepository folderRepository;
+
     @Test
     @DisplayName("updateProduct() 에 의해 관심 가격이 3만원으로 변경되는지 확인")
-    void updateProduct_Normal() throws SQLException {
+    void updateProduct_Normal() {
         // given
         Long productId = 100L;
         int myprice = 30000;
@@ -35,7 +38,7 @@ class ProductServiceTest {
         );
 
         Long userId = 12345L;
-        ProductRequestDto requestProductDto = new ProductRequestDto(
+        ProductRequestDto  requestProductDto = new ProductRequestDto(
                 "오리온 꼬북칩 초코츄러스맛 160g",
                 "https://shopping-phinf.pstatic.net/main_2416122/24161228524.20200915151118.jpg",
                 "https://search.shopping.naver.com/gate.nhn?id=24161228524",
@@ -44,7 +47,7 @@ class ProductServiceTest {
 
         Product product = new Product(requestProductDto, userId);
 
-        ProductService productService = new ProductService(productRepository);
+        ProductService productService = new ProductService(productRepository, folderRepository);
         when(productRepository.findById(productId))
                 .thenReturn(Optional.of(product));
 
@@ -76,7 +79,7 @@ class ProductServiceTest {
 
         Product product = new Product(requestProductDto, userId);
 
-        ProductService productService = new ProductService(productRepository);
+        ProductService productService = new ProductService(productRepository, folderRepository);
         when(productRepository.findById(productId))
                 .thenReturn(Optional.of(product));
 
@@ -85,6 +88,5 @@ class ProductServiceTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             productService.updateProduct(productId, requestMyPriceDto);
         });
-
     }
 }

@@ -3,6 +3,7 @@ package com.deepening.spring_core.controller;
 import com.deepening.spring_core.dto.ProductMypriceRequestDto;
 import com.deepening.spring_core.dto.ProductRequestDto;
 import com.deepening.spring_core.model.Product;
+import com.deepening.spring_core.model.User;
 import com.deepening.spring_core.security.UserDetailsImpl;
 import com.deepening.spring_core.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,16 @@ public class ProductController {
             @RequestParam("isAsc") boolean isAsc
     ) {
         return productService.getAllProducts(page , size, sortBy, isAsc);
+    }
+
+    // 상품에 폴더 추가
+    @PostMapping("/api/products/{id}/folder")
+    public Long addFolder(@PathVariable Long id,
+                          @RequestParam("folderId") Long folderId,
+                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        User user = userDetails.getUser();
+        Product product = productService.addFolder(id, folderId, user);
+        // 응답 보내기
+        return product.getId();
     }
 }
