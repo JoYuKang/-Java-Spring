@@ -23,9 +23,13 @@ public class UserTime {
     @Column(nullable = false)
     private long totalTime;
 
-    public UserTime(User user, long totalTime) {
+//    @Column(nullable = false)
+//    private long totalCount;
+
+    public UserTime(User user, long totalTime) { //long totalCodunt
         this.user = user;
         this.totalTime = totalTime;
+//        this.totalCount = totalCount;
     }
 
     public void updateTotalTime(long totalTime) {

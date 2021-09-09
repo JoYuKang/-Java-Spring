@@ -34,6 +34,7 @@ public class UserTimeAop {
             long endTime = System.currentTimeMillis();
             // 수행시간 = 종료 시간 - 시작 시간
             long runTime = endTime - startTime;
+            //long count = userTimeRepository.count();
             // 로그인 회원이 없는 경우, 수행시간 기록하지 않음
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null && auth.getPrincipal().getClass() == UserDetailsImpl.class) {

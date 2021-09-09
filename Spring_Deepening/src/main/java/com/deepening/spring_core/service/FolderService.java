@@ -1,5 +1,6 @@
 package com.deepening.spring_core.service;
 
+import com.deepening.spring_core.Exception.ApiRequestException;
 import com.deepening.spring_core.model.Folder;
 import com.deepening.spring_core.model.Product;
 import com.deepening.spring_core.model.User;
@@ -34,8 +35,9 @@ public class FolderService {
     public List<Folder> getFolders(User user) {
         return folderRepository.findAllByUser(user);
     }
-    @Transactional // 중복 제거 방법2
+    @Transactional // (readOnly = false)
     public List<Folder> createFolders(List<String> folderNameList, User user) {
+
         List<Folder> folderList = new ArrayList<>();
 
         for (String folderName : folderNameList) {
@@ -43,7 +45,7 @@ public class FolderService {
             Folder folderInDB = folderRepository.findByName(folderName);
             if (folderInDB != null) {
                 // DB 에 중복 폴더명 존재한다면 Exception 발생시킴
-                throw new IllegalArgumentException("중복된 폴더명 (" + folderName +") 을 삭제하고 재시도해 주세요!");
+                throw new ApiRequestException("중복된 폴더명 ('" + folderName + "') 을 삭제하고 재시도해 주세요!");
             }
 
             // 2) 폴더를 DB 에 저장

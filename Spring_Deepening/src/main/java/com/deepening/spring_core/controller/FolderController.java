@@ -1,5 +1,6 @@
 package com.deepening.spring_core.controller;
 
+import com.deepening.spring_core.Exception.ApiException;
 import com.deepening.spring_core.dto.FolderCreateRequestDto;
 import com.deepening.spring_core.model.Folder;
 import com.deepening.spring_core.model.Product;
@@ -7,6 +8,8 @@ import com.deepening.spring_core.security.UserDetailsImpl;
 import com.deepening.spring_core.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,7 @@ public class FolderController {
     // 회원이 등록한 모든 폴더 조회
     @GetMapping("/api/folders")
     public List<Folder> getFolders(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+
         return folderService.getFolders(userDetails.getUser());
     }
 
@@ -48,4 +52,5 @@ public class FolderController {
         page = page - 1;
         return folderService.getProductsOnFolder(userDetails.getUser(), page, size, sortBy, isAsc, folderId);
     }
+
 }
