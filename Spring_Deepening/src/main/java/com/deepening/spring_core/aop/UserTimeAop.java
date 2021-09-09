@@ -34,7 +34,8 @@ public class UserTimeAop {
             long endTime = System.currentTimeMillis();
             // 수행시간 = 종료 시간 - 시작 시간
             long runTime = endTime - startTime;
-            //long count = userTimeRepository.count();
+
+
             // 로그인 회원이 없는 경우, 수행시간 기록하지 않음
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null && auth.getPrincipal().getClass() == UserDetailsImpl.class) {
@@ -48,7 +49,11 @@ public class UserTimeAop {
                     // 로그인 회원의 기록이 있으면
                     long totalTime = userTime.getTotalTime();
                     totalTime = totalTime + runTime;
-                    userTime.updateTotalTime(totalTime);
+                    // API 전체 수행 횟수
+                    long totalCount = userTime.getTotalCount();
+                    totalCount++;
+                    userTime.updateTotalTime(totalTime,totalCount);
+
                 } else {
                     // 로그인 회원의 기록이 없으면
                     userTime = new UserTime(loginUser, runTime);
