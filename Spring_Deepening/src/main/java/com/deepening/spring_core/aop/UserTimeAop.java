@@ -49,7 +49,7 @@ public class UserTimeAop {
                     // 로그인 회원의 기록이 있으면
                     long totalTime = userTime.getTotalTime();
                     totalTime = totalTime + runTime;
-                    // API 전체 수행 횟수
+                    // API 전체 수행 횟수 확인
                     long totalCount = userTime.getTotalCount();
                     totalCount++;
                     userTime.updateTotalTime(totalTime,totalCount);
