@@ -6,7 +6,7 @@
 - Spring Web
 - Mysql Driver
 - H2 Database
-- Spring Data JPA
+- Spring Data JPA  
 - Lombok
 
 #### 환경설정
