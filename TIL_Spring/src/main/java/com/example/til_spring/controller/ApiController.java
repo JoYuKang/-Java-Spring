@@ -77,4 +77,18 @@ public class ApiController {
 
         return userRequset.toString();
     }
+    //text로 내려줌 (실제로는 이렇게 사용 x)
+    @GetMapping("/text")
+    public String text(@RequestParam String account) {
+        System.out.println(account);
+        return account;
+    }
+    //JSON으로 받기
+    // request -> object mapper -> object -> method -> object -> object mapper -> json -> response
+    @PostMapping("/json")
+    public UserRequset json(@RequestBody  UserRequset userRequset){
+        return userRequset;
+    }
+
+
 }
