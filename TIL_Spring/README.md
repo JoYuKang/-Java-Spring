@@ -17,4 +17,15 @@
   JSON 형태로 HTTP BODY에 데이터를 넣어야한다.
   
  ### 실제로는 @RequestParam 또는 @PathVariable 하나만 사용하는 것이 아닌 복합적으로 사용
+ 
+ 
+ ###  @Bean 과 @Component 차이
 
+#### @Bean
+- @Bean은 메소드 레벨에서 선언하며, 반환되는 객체(인스턴스)를 개발자가 수동으로 @Bean으로 등록
+- 개발자가 컨트롤이 불가능한 외부 라이브러리들을 Bean으로 등록하고 싶은 경우에 사용
+- 개발자가 생성한 클래스에 @Bean은 선언 불가능
+
+#### @Component
+- @Component는 클래스 레벨에서 선언함으로써 스프링이 런타임시에 컴포넌트스캔을 하여 자동으로 @Bean을 찾고(detect) 등록
+- 개발자가 직접 컨트롤이 가능한 Class들의 경우엔 @Component를 사용
