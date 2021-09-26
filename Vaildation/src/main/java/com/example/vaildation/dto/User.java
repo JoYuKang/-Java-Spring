@@ -10,8 +10,8 @@ public class User {
     @NotBlank
     private String name;
 
-    @Min(value = 1)
-    @Max(value = 99)
+    @Min(1)
+    @Max(100)
     private int age;
 
     @Email
