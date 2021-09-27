@@ -17,14 +17,6 @@ public class User {
     @Email
     private String email;
 
-    public String getReqYearMonth() {
-        return reqYearMonth;
-    }
-
-    public void setReqYearMonth(String reqYearMonth) {
-        this.reqYearMonth = reqYearMonth;
-    }
-
     @YearMonth
     private String reqYearMonth; //yyyyMM
 
@@ -33,6 +25,16 @@ public class User {
 
     @Valid // Valid 가 없으면 유효성 검삭가 안됨
     private List<Car> cars;
+
+    public String getReqYearMonth() {
+        return reqYearMonth;
+    }
+
+    public void setReqYearMonth(String reqYearMonth) {
+        this.reqYearMonth = reqYearMonth;
+    }
+
+
 
     public List<Car> getCars() {
         return cars;
