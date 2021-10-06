@@ -1,0 +1,18 @@
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("hello Junit");
+
+
+        MarketApi marketApi = new MarketApi();
+
+        DollarCalculator dollarCalculator = new DollarCalculator(marketApi);
+        dollarCalculator.init();
+
+        Calculator calculator = new Calculator(dollarCalculator);
+
+        System.out.println(dollarCalculator.sum(10,12));
+        System.out.println(calculator.sum(10,12));
+
+    }
+}
