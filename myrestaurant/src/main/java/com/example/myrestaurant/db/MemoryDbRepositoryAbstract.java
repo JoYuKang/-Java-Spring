@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MemoryDbRepositoryAbstract<T> implements MemoryDbRepositoryIfs<T> {
+public class MemoryDbRepositoryAbstract<T extends MemoryDbEntity> implements MemoryDbRepositoryIfs<T> {
 
     private final List<T> db = new ArrayList<>();
 
@@ -12,21 +12,46 @@ public class MemoryDbRepositoryAbstract<T> implements MemoryDbRepositoryIfs<T> {
 
     @Override
     public Optional<T> findById(int index) {
-        return Optional.empty();
+        return db.stream().filter(it -> it.getIndex() == index).findFirst();
     }
 
     @Override
     public T save(T entity) {
-        return null;
+
+        var optionalEntity = db.stream().filter(it -> it.getIndex() == entity.getIndex()).findFirst();
+        // db에 데이터가 없는 경우 (삽입)
+        if(optionalEntity.isEmpty()){
+            index++;
+            entity.setIndex(index);
+            db.add(entity);
+            return entity;
+
+        }
+
+        // db에 데이터가 있는 경우 (수정)
+        else {
+            var preIndex = optionalEntity.get().getIndex();
+            entity.setIndex(preIndex);
+
+            deleteById(preIndex);
+
+            db.add(entity);
+            return entity;
+        }
+
+
     }
 
     @Override
     public void deleteById(int index) {
-
+        var optionalEntity = db.stream().filter(it ->it.getIndex() == index).findFirst();
+        if(optionalEntity.isPresent()){
+            db.remove(optionalEntity.get());
+        }
     }
 
     @Override
     public List<T> listAll() {
-        return null;
+        return db;
     }
 }
