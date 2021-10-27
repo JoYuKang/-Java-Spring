@@ -15,7 +15,7 @@ public class SearchLocalRes {
     private int total;
     private int start;
     private int display;
-    private String category;
+
     private List<SearchLocalItem> items;
 
     @Data
@@ -28,6 +28,7 @@ public class SearchLocalRes {
         private String description;
         private String telephone;
         private String address;
+        private String category;
         private String roadAddress;
         private int mapx;
         private int mapy;
