@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class WishListDto {
 
-    private int index;
+    private Integer index;
     private String title;               // 음식점 이름
     private String category;            // 카테고리
     private String address;             // 주소

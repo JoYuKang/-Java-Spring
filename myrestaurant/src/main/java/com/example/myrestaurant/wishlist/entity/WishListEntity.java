@@ -21,5 +21,4 @@ public class WishListEntity extends MemoryDbEntity {
     private int visitCount;             // 방문 횟수
     private LocalDateTime lastVisitDate;// 마지막 방문 시간
 
-
 }
