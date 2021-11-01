@@ -1,23 +1,31 @@
 package com.example.bookmanager.domain;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Data
+@Builder
 @Entity
 public class User {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
+    @NonNull
     private String name;
-    private String email;
-    private LocalDateTime createTime;
-    private LocalDateTime updateTime;
 
+    @NonNull
+    private String email;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 }
