@@ -75,5 +75,19 @@ class UserRepositoryTest {
 
         userRepository.findAll(example).forEach(System.out::println);
     }
+    @Test
+    void select(){
+        System.out.println(userRepository.findByName("yukang"));
+    }
+
+    @Test
+    void findByAddressesIsNotEmpty(){
+        System.out.println(userRepository.findByAddressesIsNotEmpty());
+    }
+
+    @Test
+    void findTopByNameOrderById(){
+        System.out.println(userRepository.findTopByNameOrderByIdDesc("yukang"));
+    }
 
 }
