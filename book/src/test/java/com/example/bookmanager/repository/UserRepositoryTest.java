@@ -2,8 +2,10 @@ package com.example.bookmanager.repository;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
+import com.example.bookmanager.domain.Gender;
 import com.example.bookmanager.domain.User;
 import org.assertj.core.util.Lists;
+import org.hibernate.criterion.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -62,8 +64,10 @@ class UserRepositoryTest {
     @Test
     void paging(){
         Page<User> userPage = userRepository.findAll(PageRequest.of(1,3));
-        System.out.println(userPage);
-        System.out.println(userPage.getTotalPages());
+        //System.out.println(userPage);
+        //System.out.println(userPage.getTotalPages());
+        System.out.println("확인");
+        System.out.println("findByName " + userRepository.findByName("yukang",PageRequest.of(0,1,Sort.by(Sort.Order.desc("id")))).getContent());
     }
     @Test
     void exampleMatcher(){
@@ -88,6 +92,29 @@ class UserRepositoryTest {
     @Test
     void findTopByNameOrderById(){
         System.out.println(userRepository.findTopByNameOrderByIdDesc("yukang"));
+    }
+
+    @Test
+    void insertAndUpdate(){
+        User user = new User();
+        user.setName("kkkkkk");
+        user.setEmail("kkkkk@naver.com");
+
+        userRepository.save(user);
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("klkklkl");
+
+        userRepository.save(user2);
+        userRepository.findAll().forEach(System.out::println);
+    }
+    @Test
+    void enumTest(){
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setGender(Gender.MALE);
+        userRepository.save(user);
+        //userRepository.findAll().forEach(System.out::println);
+
+        System.out.println(userRepository.findRowRecord().get("gender"));
     }
 
 }
