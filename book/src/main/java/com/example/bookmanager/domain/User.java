@@ -15,13 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+//@ToString(callSuper = true)
+//@EqualsAndHashCode(callSuper = true)
 @Builder
 @Entity
 @EntityListeners(value = { UsetEntityListener.class})
-//@Table(name = "User", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-public class User extends BaseEntity implements Auditable {
+@Table(name = "User", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+public class User implements Auditable {
+    //extends BaseEntity
     @Id
     @GeneratedValue
     private Long id;
@@ -35,31 +36,49 @@ public class User extends BaseEntity implements Auditable {
     @NonNull
     private String email;
 
+    @Column
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-
-//    @Column
-//    @CreatedDate
-//    private LocalDateTime createdAt;
-
-//    @Column
-//    @LastModifiedDate
-//    private LocalDateTime updatedAt;
+    @Column
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private List<Address> addresses;
 
 
 
-//    @PrePersist
-//    public void prePersist(){
-//        this.createdAt = LocalDateTime.now();
-//        this.updatedAt = LocalDateTime.now();
-//        System.out.println(">>> prePersist >>>");
-//    }
-//    @PreUpdate
-//    public void preUpdate(){
-//
-//        System.out.println(">>> preUpdate >>>");
-//        this.updatedAt = LocalDateTime.now();
-//    }
+    @PrePersist
+    public void prePersist(){
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        System.out.println(">>> prePersist >>>");
+    }
+    @PreUpdate
+    public void preUpdate(){
+
+        System.out.println(">>> preUpdate >>>");
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @Override
+    public LocalDateTime getCreateAt() {
+        return null;
+    }
+
+    @Override
+    public LocalDateTime getUpdateAt() {
+        return null;
+    }
+
+    @Override
+    public void setCreateAt(LocalDateTime createAt) {
+
+    }
+
+    @Override
+    public void setUpdateAt(LocalDateTime updateAt) {
+
+    }
 }

@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+//@ToString(callSuper = true)
+//@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-//@EntityListeners(value = AuditingEntityListener.class)
-public class Book extends BaseEntity implements Auditable {
-
+@EntityListeners(value = AuditingEntityListener.class)
+public class Book  implements Auditable {
+//extends BaseEntity
     @Id
     @GeneratedValue
     private long id;
@@ -28,20 +28,20 @@ public class Book extends BaseEntity implements Auditable {
 
     private String author;
 
-//    @CreatedDate
-//    private LocalDateTime createAt;
-//
-//    @LastModifiedDate
-//    private LocalDateTime updateAt ;
+    @CreatedDate
+    private LocalDateTime createAt;
 
-//    @PrePersist
-//    public void prePersist(){
-//        this.createAt = LocalDateTime.now();
-//        this.updateAt = LocalDateTime.now();
-//    }
-//    @PreUpdate
-//    public void PreUpdate(){
-//        this.updateAt = LocalDateTime.now();
-//    }
+    @LastModifiedDate
+    private LocalDateTime updateAt ;
+
+    @PrePersist
+    public void prePersist(){
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+    }
+    @PreUpdate
+    public void PreUpdate(){
+        this.updateAt = LocalDateTime.now();
+    }
 
 }
