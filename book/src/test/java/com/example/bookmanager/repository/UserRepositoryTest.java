@@ -84,10 +84,10 @@ class UserRepositoryTest {
         System.out.println(userRepository.findByName("yukang"));
     }
 
-    @Test
-    void findByAddressesIsNotEmpty(){
-        System.out.println(userRepository.findByAddressesIsNotEmpty());
-    }
+//    @Test
+//    void findByAddressesIsNotEmpty(){
+//       System.out.println(userRepository.findByAddressesIsNotEmpty());
+//    }
 
     @Test
     void findTopByNameOrderById(){
@@ -116,5 +116,30 @@ class UserRepositoryTest {
 
         System.out.println(userRepository.findRowRecord().get("gender"));
     }
+    @Test
+    void listenerTest(){
+        User user = new User();
+        user.setEmail("jun@naver.com");
+        user.setName("jun");
+        userRepository.save(user);
+
+        User user1 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user1.setName("juuuuun");
+        userRepository.save(user1);
+        userRepository.deleteById(4L);
+        userRepository.findAll().forEach(System.out::println);
+    }
+
+    @Test
+    void preUpdateTest(){
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        System.out.println("as - is : "+user);
+        user.setName("himmmmm");
+        userRepository.save(user);
+
+        System.out.println("to - be :" + userRepository.findAll().get(0));
+
+    }
+
 
 }

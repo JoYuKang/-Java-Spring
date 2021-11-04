@@ -1,6 +1,11 @@
 package com.example.bookmanager.domain;
 
+import com.example.bookmanager.domain.listener.Auditable;
+import com.example.bookmanager.domain.listener.UsetEntityListener;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,10 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Entity
-@Table(name = "User", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-public class User {
+@EntityListeners(value = { UsetEntityListener.class})
+//@Table(name = "User", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+public class User extends BaseEntity implements Auditable {
     @Id
     @GeneratedValue
     private Long id;
@@ -21,18 +29,37 @@ public class User {
     @NonNull
     private String name;
 
-    @NonNull
-    private String email;
-
-    @Column
-    private LocalDateTime createdAt;
-
-    @Column
-    private LocalDateTime updatedAt;
-
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Address> addresses;
+    @NonNull
+    private String email;
+
+
+
+//    @Column
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+
+//    @Column
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<Address> addresses;
+
+
+
+//    @PrePersist
+//    public void prePersist(){
+//        this.createdAt = LocalDateTime.now();
+//        this.updatedAt = LocalDateTime.now();
+//        System.out.println(">>> prePersist >>>");
+//    }
+//    @PreUpdate
+//    public void preUpdate(){
+//
+//        System.out.println(">>> preUpdate >>>");
+//        this.updatedAt = LocalDateTime.now();
+//    }
 }
