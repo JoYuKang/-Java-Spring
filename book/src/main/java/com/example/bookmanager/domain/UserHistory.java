@@ -19,11 +19,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
-//@ToString(callSuper = true)
-//@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Transactional
-@EntityListeners(value = AuditingEntityListener.class)
-public class UserHistory implements Auditable{
+//@EntityListeners(value = AuditingEntityListener.class)
+public class UserHistory extends BaseEntity implements Auditable{
     //extends BaseEntity
     @Id
     @GeneratedValue
@@ -35,11 +35,31 @@ public class UserHistory implements Auditable{
 
     private String email;
 
-    @CreatedDate
-    private LocalDateTime createAt;
+    @Override
+    public LocalDateTime getCreateAt() {
+        return null;
+    }
 
-    @LastModifiedDate
-    private LocalDateTime updateAt;
+    @Override
+    public LocalDateTime getUpdateAt() {
+        return null;
+    }
+
+    @Override
+    public void setCreateAt(LocalDateTime createAt) {
+
+    }
+
+    @Override
+    public void setUpdateAt(LocalDateTime updateAt) {
+
+    }
+
+//    @CreatedDate
+//    private LocalDateTime createAt;
+//
+//    @LastModifiedDate
+//    private LocalDateTime updateAt;
 
 
 }

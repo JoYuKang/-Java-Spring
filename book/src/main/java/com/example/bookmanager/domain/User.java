@@ -15,13 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
-//@ToString(callSuper = true)
-//@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Entity
 @EntityListeners(value = { UsetEntityListener.class})
-@Table(name = "User", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-public class User implements Auditable {
+//@Table(name = "User", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+public class User extends BaseEntity implements Auditable {
     //extends BaseEntity
     @Id
     @GeneratedValue
@@ -35,32 +35,6 @@ public class User implements Auditable {
 
     @NonNull
     private String email;
-
-    @Column
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @Column
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-//    @OneToMany(fetch = FetchType.EAGER)
-//    private List<Address> addresses;
-
-
-
-    @PrePersist
-    public void prePersist(){
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-        System.out.println(">>> prePersist >>>");
-    }
-    @PreUpdate
-    public void preUpdate(){
-
-        System.out.println(">>> preUpdate >>>");
-        this.updatedAt = LocalDateTime.now();
-    }
 
     @Override
     public LocalDateTime getCreateAt() {
@@ -81,4 +55,30 @@ public class User implements Auditable {
     public void setUpdateAt(LocalDateTime updateAt) {
 
     }
+
+//    @Column
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//
+//    @Column
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<Address> addresses;
+
+
+
+//    @PrePersist
+//    public void prePersist(){
+//        this.createdAt = LocalDateTime.now();
+//        this.updatedAt = LocalDateTime.now();
+//        System.out.println(">>> prePersist >>>");
+//    }
+//    @PreUpdate
+//    public void preUpdate(){
+//
+//        System.out.println(">>> preUpdate >>>");
+//        this.updatedAt = LocalDateTime.now();
+//    }
 }

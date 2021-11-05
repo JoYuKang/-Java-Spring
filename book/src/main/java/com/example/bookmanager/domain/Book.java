@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-//@ToString(callSuper = true)
-//@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@EntityListeners(value = AuditingEntityListener.class)
-public class Book  implements Auditable {
-//extends BaseEntity
+//@EntityListeners(value = AuditingEntityListener.class)
+public class Book extends BaseEntity implements Auditable {
+//extends BaseEntity implements Auditable
     @Id
     @GeneratedValue
     private long id;
@@ -28,20 +28,40 @@ public class Book  implements Auditable {
 
     private String author;
 
-    @CreatedDate
-    private LocalDateTime createAt;
-
-    @LastModifiedDate
-    private LocalDateTime updateAt ;
-
-    @PrePersist
-    public void prePersist(){
-        this.createAt = LocalDateTime.now();
-        this.updateAt = LocalDateTime.now();
+    @Override
+    public LocalDateTime getCreateAt() {
+        return null;
     }
-    @PreUpdate
-    public void PreUpdate(){
-        this.updateAt = LocalDateTime.now();
+
+    @Override
+    public LocalDateTime getUpdateAt() {
+        return null;
     }
+
+    @Override
+    public void setCreateAt(LocalDateTime createAt) {
+
+    }
+
+    @Override
+    public void setUpdateAt(LocalDateTime updateAt) {
+
+    }
+
+//    @CreatedDate
+//    private LocalDateTime createAt;
+//
+//    @LastModifiedDate
+//    private LocalDateTime updateAt ;
+//
+//    @PrePersist
+//    public void prePersist(){
+//        this.createAt = LocalDateTime.now();
+//        this.updateAt = LocalDateTime.now();
+//    }
+//    @PreUpdate
+//    public void PreUpdate(){
+//        this.updateAt = LocalDateTime.now();
+//    }
 
 }
