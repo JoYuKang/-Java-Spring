@@ -19,7 +19,8 @@ class BookRepositoryTest {
         Book book = new Book();
 
         book.setName("트렌드 코리아 2021");
-        book.setAuthor("김난도");
+        book.setAuthorId(1L);
+        book.setPublisherId(1L);
         bookRepository.save(book);
         bookRepository.findAll().forEach(System.out::println);
     }

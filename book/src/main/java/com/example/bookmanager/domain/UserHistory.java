@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Transactional
 //@EntityListeners(value = AuditingEntityListener.class)
-public class UserHistory extends BaseEntity implements Auditable{
+public class UserHistory extends BaseEntity {
     //extends BaseEntity
     @Id
     @GeneratedValue
@@ -35,25 +35,6 @@ public class UserHistory extends BaseEntity implements Auditable{
 
     private String email;
 
-    @Override
-    public LocalDateTime getCreateAt() {
-        return null;
-    }
-
-    @Override
-    public LocalDateTime getUpdateAt() {
-        return null;
-    }
-
-    @Override
-    public void setCreateAt(LocalDateTime createAt) {
-
-    }
-
-    @Override
-    public void setUpdateAt(LocalDateTime updateAt) {
-
-    }
 
 //    @CreatedDate
 //    private LocalDateTime createAt;

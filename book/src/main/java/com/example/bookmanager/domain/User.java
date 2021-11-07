@@ -21,7 +21,7 @@ import java.util.List;
 @Entity
 @EntityListeners(value = { UsetEntityListener.class})
 //@Table(name = "User", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-public class User extends BaseEntity implements Auditable {
+public class User extends BaseEntity {
     //extends BaseEntity
     @Id
     @GeneratedValue
@@ -35,26 +35,6 @@ public class User extends BaseEntity implements Auditable {
 
     @NonNull
     private String email;
-
-    @Override
-    public LocalDateTime getCreateAt() {
-        return null;
-    }
-
-    @Override
-    public LocalDateTime getUpdateAt() {
-        return null;
-    }
-
-    @Override
-    public void setCreateAt(LocalDateTime createAt) {
-
-    }
-
-    @Override
-    public void setUpdateAt(LocalDateTime updateAt) {
-
-    }
 
 //    @Column
 //    @CreatedDate

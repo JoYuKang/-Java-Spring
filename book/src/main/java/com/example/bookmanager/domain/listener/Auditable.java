@@ -5,7 +5,9 @@ import jdk.vm.ci.meta.Local;
 import java.time.LocalDateTime;
 
 public interface Auditable {
+
     LocalDateTime getCreateAt();
+
     LocalDateTime getUpdateAt();
 
     void setCreateAt(LocalDateTime createAt);

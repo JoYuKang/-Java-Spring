@@ -18,50 +18,21 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 //@EntityListeners(value = AuditingEntityListener.class)
-public class Book extends BaseEntity implements Auditable {
-//extends BaseEntity implements Auditable
+public class Book extends BaseEntity {
+
     @Id
     @GeneratedValue
     private long id;
 
     private String name;
 
-    private String author;
+    private String category;
 
-    @Override
-    public LocalDateTime getCreateAt() {
-        return null;
-    }
+    private Long authorId;
 
-    @Override
-    public LocalDateTime getUpdateAt() {
-        return null;
-    }
+    private Long publisherId;
 
-    @Override
-    public void setCreateAt(LocalDateTime createAt) {
 
-    }
 
-    @Override
-    public void setUpdateAt(LocalDateTime updateAt) {
-
-    }
-
-//    @CreatedDate
-//    private LocalDateTime createAt;
-//
-//    @LastModifiedDate
-//    private LocalDateTime updateAt ;
-//
-//    @PrePersist
-//    public void prePersist(){
-//        this.createAt = LocalDateTime.now();
-//        this.updateAt = LocalDateTime.now();
-//    }
-//    @PreUpdate
-//    public void PreUpdate(){
-//        this.updateAt = LocalDateTime.now();
-//    }
 
 }

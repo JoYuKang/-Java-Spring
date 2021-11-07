@@ -1,6 +1,7 @@
 package com.example.bookmanager.domain;
 
 
+import com.example.bookmanager.domain.listener.Auditable;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,11 +14,31 @@ import java.time.LocalDateTime;
 @Data
 @MappedSuperclass
 @EntityListeners(value = AuditingEntityListener.class)
-public class BaseEntity {
+public class BaseEntity implements Auditable {
 
     @CreatedDate
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    @Override
+    public LocalDateTime getCreateAt() {
+        return null;
+    }
+
+    @Override
+    public LocalDateTime getUpdateAt() {
+        return null;
+    }
+
+    @Override
+    public void setCreateAt(LocalDateTime createAt) {
+
+    }
+
+    @Override
+    public void setUpdateAt(LocalDateTime updateAt) {
+
+    }
 }
