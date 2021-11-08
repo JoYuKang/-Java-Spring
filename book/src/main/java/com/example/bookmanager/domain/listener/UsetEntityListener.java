@@ -5,7 +5,10 @@ import com.example.bookmanager.domain.UserHistory;
 import com.example.bookmanager.repository.UserHistoryRepository;
 import com.example.bookmanager.support.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -14,8 +17,8 @@ public class UsetEntityListener {
 //    @Autowired
 //    private UserHistoryRepository userHistoryRepository;
 
-    @PrePersist
-    @PreUpdate
+    @PostPersist
+    @PostUpdate
     public void prePersistAndUpdate(Object o ){
 
         UserHistoryRepository userHistoryRepository = BeanUtils.getBean(UserHistoryRepository.class);
@@ -27,6 +30,8 @@ public class UsetEntityListener {
         userHistory.setEmail(user.getEmail());
 
         userHistory.setName(user.getName());
+
+        userHistory.setGender(user.getGender());
 
         userHistoryRepository.save(userHistory);
 

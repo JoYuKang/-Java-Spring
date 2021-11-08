@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -20,11 +21,10 @@ import java.util.List;
 @Builder
 @Entity
 @EntityListeners(value = { UsetEntityListener.class})
-//@Table(name = "User", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User extends BaseEntity {
-    //extends BaseEntity
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
@@ -36,29 +36,8 @@ public class User extends BaseEntity {
     @NonNull
     private String email;
 
-//    @Column
-//    @CreatedDate
-//    private LocalDateTime createdAt;
-//
-//    @Column
-//    @LastModifiedDate
-//    private LocalDateTime updatedAt;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id",insertable = false,updatable = false)
+    private List<UserHistory> userHistories = new ArrayList<>();
 
-//    @OneToMany(fetch = FetchType.EAGER)
-//    private List<Address> addresses;
-
-
-
-//    @PrePersist
-//    public void prePersist(){
-//        this.createdAt = LocalDateTime.now();
-//        this.updatedAt = LocalDateTime.now();
-//        System.out.println(">>> prePersist >>>");
-//    }
-//    @PreUpdate
-//    public void preUpdate(){
-//
-//        System.out.println(">>> preUpdate >>>");
-//        this.updatedAt = LocalDateTime.now();
-//    }
 }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 //          Entity, pk
 public interface UserRepository extends JpaRepository<User,Long> {
@@ -21,4 +22,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Map<String, Object> findRowRecord();
 
 
+    User findByEmail(String email);
 }

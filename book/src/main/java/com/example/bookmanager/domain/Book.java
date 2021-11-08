@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class Book extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
@@ -32,6 +32,9 @@ public class Book extends BaseEntity {
 
     private Long publisherId;
 
+    @OneToOne(mappedBy = "book")
+    @ToString.Exclude
+    private BookReviewInfo bookReviewInfo;
 
 
 

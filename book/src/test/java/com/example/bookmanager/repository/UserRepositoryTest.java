@@ -4,6 +4,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 
 import com.example.bookmanager.domain.Gender;
 import com.example.bookmanager.domain.User;
+import com.example.bookmanager.domain.UserHistory;
 import org.assertj.core.util.Lists;
 import org.hibernate.criterion.Order;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,8 @@ class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserHistoryRepository userHistoryRepository;
 
     @Test
     void crud(){
@@ -84,10 +87,6 @@ class UserRepositoryTest {
         System.out.println(userRepository.findByName("yukang"));
     }
 
-//    @Test
-//    void findByAddressesIsNotEmpty(){
-//       System.out.println(userRepository.findByAddressesIsNotEmpty());
-//    }
 
     @Test
     void findTopByNameOrderById(){
@@ -130,16 +129,26 @@ class UserRepositoryTest {
         userRepository.findAll().forEach(System.out::println);
     }
 
+
     @Test
-    void preUpdateTest(){
-        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
-        System.out.println("as - is : "+user);
-        user.setName("himmmmm");
+    void userRelationTest(){
+        User user = new User();
+        user.setName("jun");
+        user.setEmail("jun@naver.com");
+        user.setGender(Gender.MALE);
+        userRepository.save(user);
+        user.setName("daniel");
         userRepository.save(user);
 
-        System.out.println("to - be :" + userRepository.findAll().get(0));
+        user.setEmail("daniel@naver.com");
+        userRepository.save(user);
+        //u serHistoryRepository.findAll().forEach(System.out::println);
+//        List<UserHistory> result = userHistoryRepository.findByUserId(
+//                userRepository.findByEmail("daniel@naver.com").getId());
 
+
+        List<UserHistory> result = userRepository.findByEmail("daniel@naver.com").getUserHistories();
+        result.forEach(System.out::println);
     }
-
 
 }
