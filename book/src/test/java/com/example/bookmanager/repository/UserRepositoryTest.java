@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -131,6 +132,7 @@ class UserRepositoryTest {
 
 
     @Test
+    @Transactional
     void userRelationTest(){
         User user = new User();
         user.setName("jun");
@@ -142,6 +144,8 @@ class UserRepositoryTest {
 
         user.setEmail("daniel@naver.com");
         userRepository.save(user);
+
+        userHistoryRepository.findAll().forEach(System.out::println);
         //u serHistoryRepository.findAll().forEach(System.out::println);
 //        List<UserHistory> result = userHistoryRepository.findByUserId(
 //                userRepository.findByEmail("daniel@naver.com").getId());
@@ -149,6 +153,9 @@ class UserRepositoryTest {
 
         List<UserHistory> result = userRepository.findByEmail("daniel@naver.com").getUserHistories();
         result.forEach(System.out::println);
+
+        System.out.println("UserHistory.getUser() " + userHistoryRepository.findAll().get(0).getUser());
+
     }
 
 }

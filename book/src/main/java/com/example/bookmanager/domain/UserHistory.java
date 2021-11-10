@@ -25,7 +25,7 @@ public class UserHistory extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id",updatable = false,insertable = false)
     private Long userId;
 
     private String name;
@@ -35,4 +35,6 @@ public class UserHistory extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
+    @ManyToOne
+    private User user;
 }

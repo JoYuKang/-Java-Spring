@@ -51,7 +51,7 @@ class BookReviewInfoRepositoryTest {
 
         book.setName("자바의 신");
         book.setAuthorId(1L);
-        book.setPublisherId(1L);
+        //book.setPublisherId(1L);
 
         bookRepository.save(book);
         return bookRepository.save(book);

@@ -33,6 +33,8 @@ public class UsetEntityListener {
 
         userHistory.setGender(user.getGender());
 
+        userHistory.setUser(user);
+
         userHistoryRepository.save(userHistory);
 
     }
