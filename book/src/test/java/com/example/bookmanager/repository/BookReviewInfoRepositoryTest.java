@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
+
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class BookReviewInfoRepositoryTest {
@@ -19,7 +21,8 @@ class BookReviewInfoRepositoryTest {
     @Test
     void CRUDTest(){
         BookReviewInfo bookReviewInfo = new BookReviewInfo();
-        //bookReviewInfo.setBook();
+        bookReviewInfo.setBook(givenBook());
+
         bookReviewInfo.setAverageReviewScore(4.5f);
         bookReviewInfo.setReviewCount(10);
 
@@ -28,23 +31,23 @@ class BookReviewInfoRepositoryTest {
         bookReviewInfoRepository.findAll().forEach(System.out::println);
     }
 
-    @Test
-    void CRUDTest2(){
-
-        givenBookReviewInfo();
-
-        bookReviewInfoRepository.findAll().forEach(System.out::println);
-        Book result = bookReviewInfoRepository.findById(1L)
-                        .orElseThrow(RuntimeException::new)
-                        .getBook();
-
-        System.out.println(result);
-        BookReviewInfo result2 = bookRepository
-                .findById(1L)
-                .orElseThrow(RuntimeException::new)
-                .getBookReviewInfo();
-
-    }
+//    @Test
+//    void CRUDTest2(){
+//
+//        givenBookReviewInfo();
+//
+//        bookReviewInfoRepository.findAll().forEach(System.out::println);
+//        Book result = bookReviewInfoRepository.findById(1L)
+//                        .orElseThrow(RuntimeException::new)
+//                        .getBook();
+//
+//        System.out.println(result);
+//        BookReviewInfo result2 = bookRepository
+//                .findById(7L)
+//                .orElseThrow(RuntimeException::new)
+//                .getBookReviewInfo();
+//        System.out.println(result2);
+//    }
 
     private Book givenBook(){
         Book book = new Book();
