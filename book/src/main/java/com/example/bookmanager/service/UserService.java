@@ -29,6 +29,7 @@ public class UserService {
 
         return user;
     }
+
     @Transactional
     public void put2() {
         User user = new User();
