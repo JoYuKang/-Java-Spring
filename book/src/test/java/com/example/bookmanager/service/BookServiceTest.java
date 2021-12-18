@@ -25,6 +25,7 @@ class BookServiceTest {
         bookService.putBookAndAuthor();
 
         System.out.println("book : " + bookRepository.findAll());
+
         System.out.println("author : "+authorRepository.findAll());
     }
 }
