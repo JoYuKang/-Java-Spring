@@ -7,7 +7,10 @@ import com.example.bookmanager.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 
 @Service
 @RequiredArgsConstructor
@@ -16,17 +19,47 @@ public class BookService {
 
     private final AuthorRepository authorRepository;
 
-    @Transactional
+    private final EntityManager entityManager;
+
+    private final AuthorService authorService;
+
+    @Transactional(propagation = Propagation.REQUIRED)
     public void putBookAndAuthor(){
         Book book = new Book();
         book.setName("JPA 마스터");
 
         bookRepository.save(book);
-        Author author = new Author();
 
-        author.setName("J0K");
+//        Author author = new Author();
+//
+//        author.setName("J0K");
+//
+//        authorRepository.save(author);
+//
+//        authorService.putAuthor();
 
-        authorRepository.save(author);
+        try {
+            authorService.putAuthor();
+        }catch (RuntimeException e){
+            e.getMessage();
+        }
+
+        throw new RuntimeException("오류 발생 rollback 여부 확인 ");
+    }
+
+    @Transactional
+    public void get(Long id){
+        System.out.println(">>> " + bookRepository.findById(id));
+        System.out.println(">>> " + bookRepository.findAll());
+
+        //entityManager.clear();
+
+        System.out.println(">>> " + bookRepository.findById(id));
+        System.out.println(">>> " + bookRepository.findAll());
+
+        bookRepository.update();
+       // entityManager.clear();
+
     }
 
 }
