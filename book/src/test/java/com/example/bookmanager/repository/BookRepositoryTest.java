@@ -7,10 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.persistence.Table;
 import javax.transaction.Transactional;
 
+import java.awt.print.Pageable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -107,7 +111,7 @@ class BookRepositoryTest {
 
     @Test
     @DisplayName("publisher 저장 확인")
-    void publisherTest(){
+    void publisherTest() {
         Book book1 = new Book();
         book1.setName("자바의 신");
 
@@ -166,9 +170,10 @@ class BookRepositoryTest {
 
         System.out.println("book4 : " + bookRepository.findById(1L).get().getPublisher());
     }
+
     @Test
     @DisplayName("deleted false 찾기")
-    void deletedFalse(){
+    void deletedFalse() {
         Book book1 = new Book();
         book1.setName("자바의 신");
         book1.setDeleted(false);
@@ -196,6 +201,59 @@ class BookRepositoryTest {
         //System.out.println(bookRepository.findAll());
 
         System.out.println(bookRepository.findById(3L));
+    }
+
+    @Test
+    @DisplayName("쿼리문")
+    void queryTest() {
+        Book book1 = new Book();
+        book1.setName("자바의 신");
+        book1.setDeleted(false);
+
+        Publisher publisher = new Publisher();
+        publisher.setName("투썸");
+
+        publisherRepository.save(publisher);
+
+        Book book2 = new Book();
+        book2.setName("토비의 Spring");
+        book2.setPublisher(publisher);
+        book2.setDeleted(false);
+
+        Book book3 = new Book();
+        book3.setName("이펙티브 자바");
+        book3.setPublisher(publisher);
+        book3.setDeleted(true);
+
+        bookRepository.save(book1);
+        bookRepository.save(book2);
+        bookRepository.save(book3);
+
+        bookRepository.findAll().forEach(System.out::println);
+
+//        bookRepository.findByCategoryIsNullAndNameEqualsAndCreateAtGreaterThanEqualAndUpdateAtGreaterThanEqual(
+//                "토비의 Spring", LocalDateTime.now().minusDays(1L),LocalDateTime.now().minusDays(1L)
+//        );
+        System.out.println("findByNameRecently : " + bookRepository.findByNameRecently(
+                "토비의 Spring", LocalDateTime.now().minusDays(1L), LocalDateTime.now().minusDays(1L)));
+
+//        System.out.println("findBookNameAndCategory : " + bookRepository.findBookNameAndCategory());
+
+        System.out.println("findBookNameAndCategory + interface");
+        bookRepository.findBookNameAndCategory().forEach(b -> System.out.println(b.getName() +
+                " : " +b.getCategory()));
+
+        System.out.println("findBookNameAndCategory + class");
+        bookRepository.findBookNameAndCategory2().forEach(b -> System.out.println(b.getName() +
+                " : " +b.getCategory()));
+
+        System.out.println("findBookNameAndCategory + Page");
+        bookRepository.findBookNameAndCategory2(PageRequest.of(1,1)).forEach(bookNameAndCategory2 ->
+                System.out.println(bookNameAndCategory2.getName() + " : " + bookNameAndCategory2.getCategory()));
+
+        System.out.println("findBookNameAndCategory + Page");
+        bookRepository.findBookNameAndCategory2(PageRequest.of(0,1)).forEach(bookNameAndCategory2 ->
+                System.out.println(bookNameAndCategory2.getName() + " : " + bookNameAndCategory2.getCategory()));
     }
 
 }
