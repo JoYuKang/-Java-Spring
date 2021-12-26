@@ -47,4 +47,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "select new com.example.bookmanager.repository.dto.BookNameAndCategory2(b.name,b.category) from Book b")
     Page<BookNameAndCategory2> findBookNameAndCategory2(Pageable pageable);
+
+    @Query(value = "select * from book",nativeQuery = true)
+    List<Book> findAllCustom();
+
 }

@@ -196,11 +196,19 @@ class BookRepositoryTest {
         bookRepository.save(book1);
         bookRepository.save(book2);
         bookRepository.save(book3);
-
         bookRepository.findAll().forEach(System.out::println);
+        bookRepository.findAllCustom().forEach(System.out::println);
+        // bookRepository.findAll().forEach(System.out::println);
         //System.out.println(bookRepository.findAll());
 
-        System.out.println(bookRepository.findById(3L));
+        //System.out.println(bookRepository.findById(3L));
+    }
+
+    @Test
+    @DisplayName("NativeQuery")
+    void nativeQueryTest() {
+        bookRepository.findAll().forEach(System.out::println);
+        bookRepository.findAllCustom().forEach(System.out::println);
     }
 
     @Test
@@ -241,18 +249,18 @@ class BookRepositoryTest {
 
         System.out.println("findBookNameAndCategory + interface");
         bookRepository.findBookNameAndCategory().forEach(b -> System.out.println(b.getName() +
-                " : " +b.getCategory()));
+                " : " + b.getCategory()));
 
         System.out.println("findBookNameAndCategory + class");
         bookRepository.findBookNameAndCategory2().forEach(b -> System.out.println(b.getName() +
-                " : " +b.getCategory()));
+                " : " + b.getCategory()));
 
         System.out.println("findBookNameAndCategory + Page");
-        bookRepository.findBookNameAndCategory2(PageRequest.of(1,1)).forEach(bookNameAndCategory2 ->
+        bookRepository.findBookNameAndCategory2(PageRequest.of(1, 1)).forEach(bookNameAndCategory2 ->
                 System.out.println(bookNameAndCategory2.getName() + " : " + bookNameAndCategory2.getCategory()));
 
         System.out.println("findBookNameAndCategory + Page");
-        bookRepository.findBookNameAndCategory2(PageRequest.of(0,1)).forEach(bookNameAndCategory2 ->
+        bookRepository.findBookNameAndCategory2(PageRequest.of(0, 1)).forEach(bookNameAndCategory2 ->
                 System.out.println(bookNameAndCategory2.getName() + " : " + bookNameAndCategory2.getCategory()));
     }
 
