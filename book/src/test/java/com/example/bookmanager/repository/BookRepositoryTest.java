@@ -1,6 +1,7 @@
 package com.example.bookmanager.repository;
 
 import com.example.bookmanager.domain.*;
+import com.example.bookmanager.repository.dto.BookStatus;
 import com.example.bookmanager.service.BookService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -236,7 +237,7 @@ class BookRepositoryTest {
         bookRepository.save(book1);
         bookRepository.save(book2);
         bookRepository.save(book3);
-
+        bookRepository.updateCategories();
         bookRepository.findAll().forEach(System.out::println);
 
 //        bookRepository.findByCategoryIsNullAndNameEqualsAndCreateAtGreaterThanEqualAndUpdateAtGreaterThanEqual(
@@ -262,6 +263,21 @@ class BookRepositoryTest {
         System.out.println("findBookNameAndCategory + Page");
         bookRepository.findBookNameAndCategory2(PageRequest.of(0, 1)).forEach(bookNameAndCategory2 ->
                 System.out.println(bookNameAndCategory2.getName() + " : " + bookNameAndCategory2.getCategory()));
+
+        System.out.println(bookRepository.showTables());
+
+    }
+
+    @Test
+    @DisplayName("converterTest")
+    void converterTest(){
+        bookRepository.findAll().forEach(System.out::println);
+        Book book = new Book();
+        book.setName("고양이 서적");
+        book.setStatus(new BookStatus(200));
+        bookRepository.save(book);
+
+        System.out.println(bookRepository.findRawRecord().values());
     }
 
 }

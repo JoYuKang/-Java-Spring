@@ -59,6 +59,12 @@ class BookServiceTest {
 
     }
 
+    @Test
+    @DisplayName("convertTest")
+    void BookConvertErrorTest(){
+        bookService.getAll();
+        bookRepository.findAll().forEach(System.out::println);
+    }
 
     @Test
     //@Transactional

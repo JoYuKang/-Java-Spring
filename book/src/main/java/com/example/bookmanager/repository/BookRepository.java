@@ -10,8 +10,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
@@ -50,5 +52,18 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "select * from book",nativeQuery = true)
     List<Book> findAllCustom();
+
+    @Query(value = "show tables",nativeQuery = true)
+    List<String> showTables();
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "update Book set category = 'IT전문서'",nativeQuery = true)
+    int updateCategories();
+
+
+    @Query(value = "select * from Book order by id desc limit 1 ",nativeQuery = true)
+    Map<String,Object> findRawRecord();
 
 }
