@@ -1,17 +1,21 @@
 package com.example.bookmanager.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
+import com.example.bookmanager.domain.Address;
 import com.example.bookmanager.domain.Gender;
 import com.example.bookmanager.domain.User;
 import com.example.bookmanager.domain.UserHistory;
 import org.assertj.core.util.Lists;
 import org.hibernate.criterion.Order;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -25,7 +29,8 @@ class UserRepositoryTest {
     private UserRepository userRepository;
     @Autowired
     private UserHistoryRepository userHistoryRepository;
-
+    @Autowired
+    private EntityManager entityManager;
     @Test
     void crud(){
         List<User> users = userRepository.findAll(Sort.by(Sort.Direction.DESC, "name"));
@@ -131,7 +136,6 @@ class UserRepositoryTest {
         userRepository.findAll().forEach(System.out::println);
     }
 
-
     @Test
     @Transactional
     void userRelationTest(){
@@ -156,6 +160,44 @@ class UserRepositoryTest {
         result.forEach(System.out::println);
 
         System.out.println("UserHistory.getUser() " + userHistoryRepository.findAll().get(0).getUser());
+
+    }
+
+    @Test
+    @DisplayName("embedTest")
+    void embedTest(){
+        userRepository.findAll().forEach(System.out::println);
+        User user = new User();
+        user.setName("종관");
+        user.setHomeAddress(new Address("인천광역시","구월동","음머아프트","024518"));
+        user.setCompanyAddress(new Address("서울시","서초구","성수대로 138","525642"));
+        userRepository.save(user);
+
+        User user1 = new User();
+        user1.setName("재우");
+        user1.setHomeAddress(null);
+        user1.setCompanyAddress(null);
+
+        userRepository.save(user1);
+
+        User user2 = new User();
+        user2.setName("정범");
+        user2.setHomeAddress(new Address());
+        user2.setCompanyAddress(new Address());
+
+        userRepository.save(user2);
+
+        //entityManager.clear();
+        //userRepository.findAll().forEach(System.out::println);
+
+        userHistoryRepository.findAll().forEach(System.out::println);
+
+        userRepository.findAllRawRecord().forEach(o -> System.out.println(o.values()));
+
+        assertAll(
+                ()-> assertThat(userRepository.findById(5L).get().getHomeAddress()).isNull(),
+                ()-> assertThat(userRepository.findById(6L).get().getHomeAddress()).isInstanceOf(Address.class)
+        );
 
     }
 

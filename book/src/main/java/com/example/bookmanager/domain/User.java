@@ -20,7 +20,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Entity
-@EntityListeners(value = { UsetEntityListener.class})
+@EntityListeners(value = {UsetEntityListener.class})
 public class User extends BaseEntity {
 
     @Id
@@ -30,14 +30,34 @@ public class User extends BaseEntity {
     @NonNull
     private String name;
 
-    @Enumerated(value = EnumType.STRING)
-    private Gender gender;
-
     @NonNull
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id",insertable = false,updatable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "home_city")),
+            @AttributeOverride(name = "district", column = @Column(name = "home_district")),
+            @AttributeOverride(name = "detail", column = @Column(name = "home_address_detail")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "home_zipCode"))
+    }
+    )
+    private Address homeAddress;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "company_city")),
+            @AttributeOverride(name = "district", column = @Column(name = "company_district")),
+            @AttributeOverride(name = "detail", column = @Column(name = "company_address_detail")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "company_zipCode"))
+    }
+    )
+    private Address companyAddress;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @ToString.Exclude
     private List<UserHistory> userHistories = new ArrayList<>();
 

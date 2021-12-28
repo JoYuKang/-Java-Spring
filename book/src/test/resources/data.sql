@@ -21,3 +21,13 @@ insert into book(`id`,`name`,`publisher_id`,`deleted`,`status`) values (2,'토�
 
 insert into book(`id`,`name`,`publisher_id`,`deleted`,`status`) values (3,'이건 가짜 책',1,false ,200 );
 
+insert into review(`id`,`title`,`content`,`score`,`user_id`,`book_id`) values (1,'Spring 필수 책', '이건 꼭 복습도 해야지',5.0,1,2);
+
+insert into review(`id`,`title`,`content`,`score`,`user_id`,`book_id`) values (2,'이건 뭐지?','너무 어렵다', 2.5,1,3);
+
+insert into comment(`id`,`comment`,`review_id`) values (1,'comment 남겨야지',1);
+
+insert into comment(`id`,`comment`,`review_id`) values (2,'하하하하 오류',1);
+
+insert into comment(`id`,`comment`,`review_id`) values (3,' 이건 모르겠지',2);
+

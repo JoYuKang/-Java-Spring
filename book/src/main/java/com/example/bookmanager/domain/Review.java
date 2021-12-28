@@ -4,8 +4,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,12 +28,17 @@ public class Review extends BaseEntity{
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Book book;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_id")
+    private List<Comment> comments;
 
 
 }

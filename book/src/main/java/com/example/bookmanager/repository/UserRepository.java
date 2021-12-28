@@ -23,4 +23,9 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
 
     User findByEmail(String email);
+
+
+    @Query(value = "select  * from  User ",nativeQuery = true)
+    List<Map<String,Object>> findAllRawRecord();
+
 }
