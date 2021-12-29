@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @ToString(callSuper = true)
+@DynamicInsert
+@DynamicUpdate
 @EqualsAndHashCode(callSuper = true)
 public class Comment extends BaseEntity{
     @Id
@@ -24,7 +28,7 @@ public class Comment extends BaseEntity{
     @ToString.Exclude
     private Review review;
 
-    @Column(columnDefinition = "datetime")
+    @Column(columnDefinition = "datetime(6) default now(6)")
     private LocalDateTime commentedAt;
 
 
