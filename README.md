@@ -1,6 +1,8 @@
 ## Java_Spring
   ###  Spring을 활용한 웹 개발
 
+### DNS 개념 
+https://www.cloudflare.com/ko-kr/learning/dns/what-is-dns/
 
 #### import
 - Spring Web
