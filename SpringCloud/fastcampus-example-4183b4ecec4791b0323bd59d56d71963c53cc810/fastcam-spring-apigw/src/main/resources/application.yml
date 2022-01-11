@@ -1,5 +1,30 @@
-server.port: 7090
+server.port: 7080
 spring.application:
   name: hanbit-api-gw
 
 spring.config.import: api-gw.yml #,eureka-client.yml
+
+spring.cloud:
+  gateway:
+    httpclient:
+      connect-timeout: 3000
+      response-timeout: 10s
+    default-filters:
+      - name: GlobalFilter
+        args:
+          defaultMessage: Api gateway
+          preLogger: true
+          postLogger: true
+    routes:
+      - id: post-service
+        uri: http://localhost:8080
+        predicates:
+          - path=/v1.0/contents/**
+        filters:
+          - name: PostFilter
+            args:
+              defaultMessage: post filter
+              preLogger: true
+              postLogger: true
+
+
