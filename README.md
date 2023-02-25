@@ -24,6 +24,9 @@ https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-me
 https://developers.naver.com/products/intro/plan/     
 https://developers.naver.com/docs/search/shopping/
 
+#### Spring Rest Docs
+https://techblog.woowahan.com/2597/
+https://docs.spring.io/spring-restdocs/docs/current/reference/htmlsingle/
 
 ##### timestamed    
 @Getter // get 함수를 자동 생성     
